@@ -1,0 +1,196 @@
+<!-- ==========================================================================
+     KFAS 신진학자상 — 모바일 대응 추가분  (www.kfasawards.or.kr / index.html)
+
+     · index.html 맨 아래 </body> 바로 위에 이 블록을 통째로 붙여 넣으세요.
+     · 기존 코드는 한 줄도 고치지 않습니다. 이 블록만 지우면 원래대로 돌아갑니다.
+     · PC 화면(961px 이상)은 전혀 달라지지 않습니다.
+     ========================================================================== -->
+
+<style id="kfas-mobile-css">
+/* ── 공통 ───────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+#dc-root section,#dc-root [id]{scroll-margin-top:80px}   /* 고정 헤더에 제목이 가리지 않도록 */
+#kfasNavToggle{display:none}                             /* PC에서는 햄버거 숨김 */
+
+/* ── 태블릿·모바일 (960px 이하) : 헤더를 한 줄로 + 햄버거 메뉴 ── */
+@media (max-width:960px){
+
+  /* 탭이 바뀔 때 옆으로 미끄러지는 효과가 화면 밖으로 삐져나오지 않도록 */
+  #dc-root{overflow-x:clip}
+
+  #headerRow{
+    min-height:0 !important;
+    padding:12px 24px !important;
+    gap:12px !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+  }
+  #kfasLogo{height:46px !important}
+
+  /* 햄버거 버튼 */
+  #kfasNavToggle{
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:5px;margin-left:auto;flex:0 0 auto;
+    width:44px;height:44px;padding:0;
+    background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  }
+  #kfasNavToggle span{
+    display:block;width:22px;height:2px;background:#14213d;
+    transition:transform .22s ease,opacity .18s ease;
+  }
+  html.kfas-nav-open #kfasNavToggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  html.kfas-nav-open #kfasNavToggle span:nth-child(2){opacity:0}
+  html.kfas-nav-open #kfasNavToggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* 메뉴 = 접히는 서랍 */
+  #mainNav{
+    position:absolute !important;
+    top:100% !important;left:0 !important;right:0 !important;
+    width:auto !important;margin:0 !important;
+    flex-direction:column !important;flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    gap:0 !important;padding:0 24px !important;
+    background:#fbfaf7;border-bottom:1px solid transparent;
+    max-height:0;overflow:hidden;visibility:hidden;
+    transition:max-height .26s ease,visibility .26s;
+    font-size:16px !important;
+  }
+  html.kfas-nav-open #mainNav{
+    max-height:76vh;overflow:auto;visibility:visible;
+    border-bottom-color:#ddd8ce;
+    box-shadow:0 14px 26px rgba(20,33,61,.09);
+    padding-bottom:10px !important;
+  }
+  #mainNav button{
+    width:100% !important;text-align:left !important;
+    padding:15px 2px !important;font-size:16px !important;
+    color:#14213d !important;border-bottom:1px solid #eae5db !important;
+  }
+  #mainNav button[data-active="true"]{color:#a5813c !important;font-weight:700 !important}
+  #mainNav button:last-of-type{border-bottom:0 !important}
+  #navBar{display:none !important}   /* 가로 밑줄 표시는 세로 메뉴에 맞지 않음 */
+}
+
+/* ── 휴대폰 (767px 이하) : 여백·글자·버튼 정리 ───────────── */
+@media (max-width:767px){
+
+  /* 1. 좌우 여백 32px → 20px */
+  [style*="max-width: 1140px"],
+  [style*="max-width: 820px"],
+  [style*="max-width: 760px"],
+  [style*="max-width: 720px"]{
+    box-sizing:border-box !important;
+    max-width:100% !important;
+    padding-left:20px !important;
+    padding-right:20px !important;
+  }
+  #headerRow{padding:12px 20px !important}
+  #mainNav{padding-left:20px !important;padding-right:20px !important}
+  #kfasLogo{height:42px !important}
+
+  /* 2. 섹션 상하 여백 축소 (넓은 규칙 → 좁은 규칙 순서) */
+  section[style*="padding: 88px 0px"]{padding-top:56px !important;padding-bottom:56px !important}
+  section[style*="padding: 80px 0px"]{padding-top:52px !important;padding-bottom:52px !important}
+  section[style*="padding: 72px 0px"]{padding-top:48px !important;padding-bottom:48px !important}
+  section[style*="padding: 64px 0px"]{padding-top:44px !important;padding-bottom:44px !important}
+  section[style*="padding: 80px 0px 0px"]{padding-top:52px !important;padding-bottom:0 !important}
+  section[style*="padding: 72px 0px 0px"]{padding-top:48px !important;padding-bottom:0 !important}
+  section[style*="padding: 64px 0px 0px"]{padding-top:44px !important;padding-bottom:0 !important}
+  section[style*="padding: 64px 0px 96px"]{padding-top:44px !important;padding-bottom:60px !important}
+  section[style*="padding: 72px 0px 88px"]{padding-top:48px !important;padding-bottom:56px !important}
+
+  /* 3. 카드 안쪽 여백 축소 */
+  [style*="padding: 38px 36px 32px"]{padding:26px 20px 24px !important}
+  [style*="padding: 40px 38px"]{padding:26px 20px !important}
+  [style*="padding: 32px 30px 0px"]{padding:26px 20px 0 !important}
+
+  /* 4. 두 부문 영역 · 히어로 */
+  #tracks{padding-top:52px !important;padding-bottom:56px !important}
+  #heroGrid{padding:60px 20px 64px !important;gap:36px !important}
+  #heroMark{font-size:clamp(64px,21vw,110px) !important;opacity:.55}
+
+  /* 5. 작은 라벨 글자 키우기 */
+  [style*="font-size: 11.5px"]{font-size:12.5px !important}
+
+  /* 6. 손가락으로 누르기 좋게 */
+  a[style*="padding: 15px 34px"]{
+    display:block !important;width:100% !important;
+    text-align:center !important;padding:16px 20px !important;
+  }
+  a[style*="border-bottom: 1.5px solid rgb(165, 129, 60)"]{
+    display:inline-block !important;padding:8px 0 !important;
+  }
+  #dc-root button:not(#mainNav button):not(#kfasNavToggle){min-height:40px}
+
+  /* 7. 푸터 로고 */
+  footer img{height:56px !important}
+}
+
+/* ── 아주 작은 화면 (640px 이하) ─────────────────────────── */
+@media (max-width:640px){
+  #headerRow > div:first-child > span[aria-hidden="true"]{display:none !important} /* 로고 옆 세로 구분선 */
+  #heroMark{font-size:clamp(60px,22vw,100px) !important}
+}
+</style>
+
+<script id="kfas-mobile-js">
+(function () {
+  var OPEN = 'kfas-nav-open';
+  var mq = window.matchMedia('(max-width:960px)');
+
+  function close() {
+    document.documentElement.classList.remove(OPEN);
+    var b = document.getElementById('kfasNavToggle');
+    if (b) { b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-label', '메뉴 열기'); }
+  }
+  function toggle() {
+    var on = document.documentElement.classList.toggle(OPEN);
+    var b = document.getElementById('kfasNavToggle');
+    if (b) {
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      b.setAttribute('aria-label', on ? '메뉴 닫기' : '메뉴 열기');
+    }
+  }
+
+  function mount() {
+    var row = document.getElementById('headerRow');
+    var nav = document.getElementById('mainNav');
+    if (!row || !nav) return false;
+
+    if (!document.getElementById('kfasNavToggle')) {
+      var b = document.createElement('button');
+      b.id = 'kfasNavToggle';
+      b.type = 'button';
+      b.setAttribute('aria-label', '메뉴 열기');
+      b.setAttribute('aria-expanded', 'false');
+      b.setAttribute('aria-controls', 'mainNav');
+      b.innerHTML = '<span></span><span></span><span></span>';
+      b.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+      row.appendChild(b);
+    }
+    if (!nav.dataset.kfasBound) {
+      nav.dataset.kfasBound = '1';
+      nav.addEventListener('click', function (e) {
+        if (e.target.closest('button')) setTimeout(close, 60);
+      });
+    }
+    return true;
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!document.documentElement.classList.contains(OPEN)) return;
+    if (e.target.closest('#siteHeader')) return;
+    close();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+  var onChange = function () { if (!mq.matches) close(); };
+  if (mq.addEventListener) mq.addEventListener('change', onChange); else mq.addListener(onChange);
+
+  if (!mount()) {
+    var tries = 0;
+    var t = setInterval(function () { if (mount() || ++tries > 80) clearInterval(t); }, 150);
+  }
+})();
+</script>
+<!-- ===================== 모바일 대응 추가분 끝 ===================== -->
